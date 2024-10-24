@@ -1,8 +1,6 @@
 import {
-  ProtectedRoute,
   createBrowserRouter,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
 import './App.css'
 
@@ -15,20 +13,18 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Applayout from "./ui/AppLayout";
+import Checkin from "./pages/Checkin";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoute>
-        <Applayout />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Navigate replace to="dashboard" />,
-      },
+    element: <Applayout/>
+  },
+      // {
+      //   path: "/",
+      //   element: <Navigate replace to="dashboard" />,
+      // },
       {
         path: "dashboard",
         element: <Dashboard />,
@@ -39,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "bookings/:bookingId",
-        element: <Booking />,
+        element: <Bookings />,
       },
       {
         path: "checkin/:bookingId",
@@ -61,8 +57,7 @@ const router = createBrowserRouter([
         path: "account",
         element: <Account />,
       },
-    ],
-  },
+  
   {
     path: "login",
     element: <Login />,
@@ -81,6 +76,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+    
     </>
   )
 }
