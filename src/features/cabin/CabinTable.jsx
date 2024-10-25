@@ -3,7 +3,7 @@ import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 
 function CabinTable() {
-  const { isLoading, cabins } = useCabins();
+  const { isLoading, Cabins } = useCabins();
 
   if (isLoading) return <span>loading </span>;
 
@@ -23,7 +23,7 @@ function CabinTable() {
         <div>Discount</div>
         <div></div>
       </header>
-      {cabins.map((cabin) => (
+      { Cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
     </div>
