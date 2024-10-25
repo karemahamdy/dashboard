@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Applayout from "./ui/AppLayout";
 import Checkin from "./pages/Checkin";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
 const router = createBrowserRouter([
@@ -72,10 +73,19 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const queryClient = new QueryClient ({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 40 
+      }
+    }
+  })
 
   return (
     <>
+      <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      </QueryClientProvider>
 
     </>
   )
