@@ -1,11 +1,12 @@
 
+import Loader from "../../ui/Loader";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 
 function CabinTable() {
   const { isLoading, Cabins } = useCabins();
 
-  if (isLoading) return <span>loading </span>;
+  if (isLoading) return <Loader/>;
 
   return (
     <div
