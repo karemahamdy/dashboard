@@ -1,6 +1,8 @@
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
+import { deleteCabins } from "../../services/apiCabins";
 
 function CabinRow({ cabin }) {
   const {
@@ -12,6 +14,20 @@ function CabinRow({ cabin }) {
     image,
     description,
   } = cabin;
+
+  const queryClient = useQueryClient();
+  const { isLoading: isDeleting, mutate: deleteCabin } = useMutation({
+    mutationFn: deleteCabins,
+    onSuccess: () => {
+      alert("Cabin successfully deleted");
+
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"],
+      });
+    },
+  
+  });
+
 
   return (
     <>
@@ -35,7 +51,7 @@ function CabinRow({ cabin }) {
         ) : (
           <span>&mdash;</span>
         )}
-        <Button bg="bg-red-600" hover="hover:bg-red-700">Delete</Button>
+        <Button bg="bg-red-600" hover="hover:bg-red-700" onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>Delete</Button>
         <Button bg="bg-blue-600" hover="hover:bg-blue-700">Edit</Button>
       </div> 
     
