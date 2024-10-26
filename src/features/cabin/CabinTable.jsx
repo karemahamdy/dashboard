@@ -14,7 +14,7 @@ function CabinTable() {
     >
     
         {/* Header */}
-        <header className="grid grid-cols-5 gap-4 bg-gray-50 px-6 py-4 border-b border-gray-200">
+        <header className="grid grid-cols-7 gap-4 bg-gray-50 px-6 py-4 border-b border-gray-200">
         <div>Image</div>
         <div>Cabin</div>
         <div>Capacity</div>

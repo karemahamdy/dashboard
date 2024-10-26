@@ -1,4 +1,5 @@
-// import { HiSquare2Stack, HiPencil, HiTrash } from "react-icons/hi";
+
+import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
 
 function CabinRow({ cabin }) {
@@ -14,7 +15,7 @@ function CabinRow({ cabin }) {
 
   return (
     <>
-      <div  className="grid grid-cols-5 gap-4 px-8 py-4 items-center bg-white p">
+      <div  className="grid grid-cols-7 gap-4 px-8 py-4 items-center bg-white p">
         <img
           src={image}
           alt={`${name} cabin`}
@@ -34,7 +35,8 @@ function CabinRow({ cabin }) {
         ) : (
           <span>&mdash;</span>
         )}
-        
+        <Button bg="bg-red-600" hover="hover:bg-red-700">Delete</Button>
+        <Button bg="bg-blue-600" hover="hover:bg-blue-700">Edit</Button>
       </div> 
     
     </>
