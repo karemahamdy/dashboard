@@ -4,7 +4,7 @@ import MainNav from './MainNav'
 
 export default function Sidebar() {
   return (
-    <div className="bg--500 p-8 pr-6 border-r border-gray-100 h-full box">
+    <div className="bg--500 p-8 border-r border-gray-100 h-full box">
       <Logo />
       <MainNav/>
     </div>

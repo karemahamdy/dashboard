@@ -10,13 +10,12 @@ function CabinTable() {
   return (
     <div
       role="table"
-      className="border border-gray-200 text-[1.4rem] bg-gray-50 rounded-lg overflow-hidden"
+      className="w-full rounded-lg border border-gray-200 overflow-hidden"
     >
-      <header
-        role="row"
-        className="grid grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] gap-x-6 items-center bg-gray-50 border-b border-gray-100 uppercase tracking-wide font-semibold text-gray-600 py-4 px-6"
-      >
-        <div></div>
+    
+        {/* Header */}
+        <header className="grid grid-cols-5 gap-4 bg-gray-50 px-6 py-4 border-b border-gray-200">
+        <div>Image</div>
         <div>Cabin</div>
         <div>Capacity</div>
         <div>Price</div>
@@ -26,7 +25,7 @@ function CabinTable() {
       { Cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
-    </div>
+      </div>
   );
 }
 
