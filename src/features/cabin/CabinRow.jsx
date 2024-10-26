@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
 import { deleteCabins } from "../../services/apiCabins";
+import toast from "react-hot-toast";
+
 
 function CabinRow({ cabin }) {
   const {
@@ -19,11 +21,14 @@ function CabinRow({ cabin }) {
   const { isLoading: isDeleting, mutate: deleteCabin } = useMutation({
     mutationFn: deleteCabins,
     onSuccess: () => {
-      alert("Cabin successfully deleted");
+      toast.success("Cabin successfully deleted");
 
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
+    },
+    onError: () => {
+    (err) =>  toast.err(err.message);
     },
   
   });
