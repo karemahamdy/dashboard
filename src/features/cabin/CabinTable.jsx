@@ -1,8 +1,6 @@
-
 import Loader from "../../ui/Loader";
 import CabinRow from "./CabinRow";
-import CreateCabin from "./CreateCabin";
-import { useCabins } from "./useCabins";
+import { useCabins } from "./UseCabins";
 
 function CabinTable() {
   const { isLoading, Cabins } = useCabins();
@@ -27,7 +25,6 @@ function CabinTable() {
       { Cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
-    
       </div>
   );
 }
