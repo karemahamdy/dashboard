@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
+import { Textarea } from "../../components/ui/textarea"
 
 
 export default function Form() {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, getValues } = useForm();
   const { errors } = formState;
 
   const onSubmit = data => console.log(data);
@@ -29,10 +30,27 @@ export default function Form() {
         <Input
           id="maxCapacity"
           type="number"
-          {...register("maxCapacity", { required: "Max capacity is required" })}
+        
+          {...register("maxCapacity", {
+            required: "Max capacity is required",
+            min: {
+              value: 1,
+              message: "Capacity should be at least 1",
+            }
+          } )}
           placeholder="Enter max capacity"
         />
         {errors.maxCapacity && <p className="text-red-500">{errors.maxCapacity.message}</p>}
+      </div>
+
+      {/* Description */}
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="description">Description</Label>
+        <Textarea
+          id="description"
+          {...register("description")}
+          placeholder="Enter product description"
+        />
       </div>
 
       {/* Discount */}
@@ -42,20 +60,18 @@ export default function Form() {
           id="discount"
           type="number"
           step="0.01"
-          {...register("discount", { valueAsNumber: true })}
-          placeholder="Enter discount (optional)"
+          {...register("discount", {
+            required: "This field is required",
+            validate: (value) =>
+              value <= getValues().price ||
+              "Discount should be less than regular price",
+          })}
+
+          placeholder="Enter discount"
         />
+        {errors.discount && <p className="text-red-500">{errors?.price?.message}</p>}
       </div>
 
-      {/* Description */}
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="description">Description</Label>
-        {/* <Textarea
-          id="description"
-          {...register("description")}
-          placeholder="Enter product description"
-        /> */}
-      </div>
 
       {/* Price */}
       <div className="flex flex-col gap-2">
@@ -63,7 +79,11 @@ export default function Form() {
         <Input
           id="price"
           type="number"
-          {...register("price", { valueAsNumber: true })}
+          {...register("price", {  validate: (value) =>
+              value <= getValues().regularPrice ||
+        "Discount should be less than regular price",
+            })}
+
           placeholder="Enter price (optional)"
         />
       </div>
