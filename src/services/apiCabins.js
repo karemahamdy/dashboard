@@ -13,7 +13,14 @@ export async function getCabins() {
 }
 
 export async function insertCabins(newCabin) {
-  const { data, error } = await supabase.from('Cabins').insert([newCabin]).select();
+  const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
+    "/",
+    ""
+  );
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const { data, error } = await supabase.from('Cabins').insert([{ ...newCabin } , image: imageName]).select();
+
+  // https://tlkyzpirifkgkmylfzwd.supabase.co/storage/v1/object/public/cabins-img/cabin-002.jpg
 
   if (error) {
     console.error(error);

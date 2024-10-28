@@ -120,9 +120,11 @@ export default function Form() {
       {/* Image */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="image">Image URL</Label>
+        
         <Input
           id="image"
-          type="url"
+          type="file"
+          accept="image/*"
           {...register("image", { required: "Image URL is required" })}
           placeholder="Enter image URL"
         />
