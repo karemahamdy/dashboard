@@ -1,5 +1,6 @@
 import Loader from "../../ui/Loader";
 import CabinRow from "./CabinRow";
+import CreateCabin from "./CreateCabin";
 import { useCabins } from "./UseCabins";
 
 function CabinTable() {
@@ -25,6 +26,7 @@ function CabinTable() {
       { Cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
+    
       </div>
   );
 }

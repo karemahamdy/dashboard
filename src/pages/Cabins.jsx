@@ -1,4 +1,5 @@
 import CabinTable from "../features/cabin/CabinTable";
+import CreateCabin from "../features/cabin/CreateCabin";
 
 export default function Cabin() {
 
@@ -9,6 +10,7 @@ export default function Cabin() {
         <span className=""> filter/sort
         </span>  
       </div>
+      <CreateCabin/>
       <CabinTable/>
     </div>
   )
