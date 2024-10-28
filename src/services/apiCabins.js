@@ -12,8 +12,21 @@ export async function getCabins() {
 }
 
 
+export async function insertCabins(newCabin) {
+  const { data, error } = await supabase
+    .from('Cabins')
+    .insert([
+      newCabin])
+    .select()
+  
+  if (error) {
+    console.error(error);
+    throw new Error("Cabins could not be loaded");
+  }
 
+  return data;
 
+}
 export async function deleteCabins(id) {
   const {  error } = await supabase
     .from('Cabins')

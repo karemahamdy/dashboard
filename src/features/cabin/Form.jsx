@@ -5,7 +5,7 @@ import { Textarea } from "../../components/ui/textarea"
 
 
 export default function Form() {
-  const { register, handleSubmit, formState, getValues } = useForm();
+  const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
   const onSubmit = data => console.log(data);
@@ -48,7 +48,10 @@ export default function Form() {
         <Label htmlFor="description">Description</Label>
         <Textarea
           id="description"
-          {...register("description")}
+          {...register("description", {
+            required: "This field is required"
+          }
+  )}
           placeholder="Enter product description"
         />
       </div>
@@ -59,7 +62,7 @@ export default function Form() {
         <Input
           id="discount"
           type="number"
-          step="0.01"
+          step="1"
           {...register("discount", {
             required: "This field is required",
             validate: (value) =>
@@ -69,7 +72,7 @@ export default function Form() {
 
           placeholder="Enter discount"
         />
-        {errors.discount && <p className="text-red-500">{errors?.price?.message}</p>}
+        {errors.discount && <p className="text-red-500">{errors?.discount?.message}</p>}
       </div>
 
 
@@ -79,13 +82,17 @@ export default function Form() {
         <Input
           id="price"
           type="number"
-          {...register("price", {  validate: (value) =>
-              value <= getValues().regularPrice ||
-        "Discount should be less than regular price",
-            })}
+          {...register("price", {
+            required: "This field is required",
+            min: {
+              value: 1,
+              message: "Price should be at least 1",
+            },
+          })}
 
           placeholder="Enter price (optional)"
         />
+        {errors.price && <p className="text-red-500">{errors?.price?.message}</p>}
       </div>
 
       {/* Image */}
@@ -101,7 +108,7 @@ export default function Form() {
       </div>
 
       <div className="flex justify-end gap-2">
-        <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg">cancel</button>
+        <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg" onClick={() => reset()}>cancel</button>
       <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg">submit</button>
       </div>
     </form>
