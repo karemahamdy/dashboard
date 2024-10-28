@@ -18,7 +18,7 @@ export async function insertCabins(newCabin) {
     ""
   );
   const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
-  const { data, error } = await supabase.from('Cabins').insert([{ ...newCabin } , image: imageName]).select();
+  const { data, error } = await supabase.from('Cabins').insert([{ ...newCabin, image: imagePath }]).select();
 
   // https://tlkyzpirifkgkmylfzwd.supabase.co/storage/v1/object/public/cabins-img/cabin-002.jpg
 

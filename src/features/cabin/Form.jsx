@@ -28,7 +28,7 @@ export default function Form() {
 
   const onSubmit = async (data) => {
     console.log("Data being sent:", data);
-    mutate({ ...data });
+    mutate({ ...data, image: data.image[0] });
   };
 
 
