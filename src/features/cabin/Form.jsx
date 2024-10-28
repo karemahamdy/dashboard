@@ -2,13 +2,35 @@ import { useForm } from "react-hook-form";
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 import { Textarea } from "../../components/ui/textarea"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { insertCabins } from "../../services/apiCabins";
 
 
 export default function Form() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
+  
+  
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: insertCabins,
+    onSuccess: () => {
+      toast.success("Cabin added successfully");
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      reset();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+      console.error("Error inserting data:", err);
+    },
+  });
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = async (data) => {
+    console.log("Data being sent:", data);
+    mutate({ ...data });
+  };
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 py-3">
@@ -58,7 +80,7 @@ export default function Form() {
 
       {/* Discount */}
       <div className="flex flex-col gap-2">
-        <Label htmlFor="discount">Discount</Label>
+        <Label htmlFor="discount">discount</Label>
         <Input
           id="discount"
           type="number"
@@ -67,7 +89,7 @@ export default function Form() {
             required: "This field is required",
             validate: (value) =>
               value <= getValues().price ||
-              "Discount should be less than regular price",
+              "discount should be less than regular price",
           })}
 
           placeholder="Enter discount"
@@ -108,7 +130,8 @@ export default function Form() {
       </div>
 
       <div className="flex justify-end gap-2">
-        <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg" onClick={() => reset()}>cancel</button>
+        <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg" type="button"
+          onClick={() => reset()}>cancel</button>
       <button className="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-lg">submit</button>
       </div>
     </form>
