@@ -11,8 +11,8 @@ export default function Form() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
   
-  
   const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: insertCabins,
     onSuccess: () => {
@@ -26,8 +26,10 @@ export default function Form() {
     },
   });
 
-  const onSubmit = async (data) => {
-    console.log("Data being sent:", data);
+  const onSubmit =  (data) => {
+    // console.log("Data being sent:", data);
+    // mutate({ ...data, image: data.image[0] });
+    // console.log("img url ");
     mutate({ ...data, image: data.image[0] });
   };
 
