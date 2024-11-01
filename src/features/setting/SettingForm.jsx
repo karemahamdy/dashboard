@@ -1,5 +1,5 @@
 // import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Loader from '@/ui/Loader';
+import Loader from '../../ui/Loader';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 // import { updateSetting } from '@/services/apiSettings';
@@ -26,7 +26,8 @@ export default function SettingForm() {
 
   function handleUpdate(e, field) {
     const { value } = e.target;
-
+  
+    console.log(value)
     if (!value) return;
     updateSetting({ [field]: value });
   }
@@ -35,7 +36,7 @@ export default function SettingForm() {
   return (
     <>
     <div className="bg-white  rounded-md p-6">
-        <form onSubmit={handleUpdate}>
+        <form>
       
           <div className=" mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
             <Label htmlFor="maxbooking" className="sm:basis-40 ">Max Booking/nights</Label>
@@ -43,7 +44,7 @@ export default function SettingForm() {
             id="maxbooking"
               type="name"
               defaultValue={maxbooking}
-              disabled={isUpdating}
+              // disabled={isUpdating}
               onBlur={(e) => handleUpdate(e, "maxbooking")}
             />  
          </div>
