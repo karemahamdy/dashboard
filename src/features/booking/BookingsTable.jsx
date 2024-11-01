@@ -7,7 +7,7 @@ function BookingsTable() {
   const { isLoading, Bookings } = useBooking();
 
   if (isLoading) return <Loader/>;
-  if (!Bookings.length) return <Empty resourceName="bookings" />;
+  // if (!Bookings.length) return <Empty resourceName="bookings" />;
 
   return (
     <div
@@ -24,8 +24,8 @@ function BookingsTable() {
         <div>Amount</div>
         <div></div>
       </header>
-      { Bookings.map((cabin) => (
-        <BookingsRow cabin={cabin} key={cabin.id} />
+      {Bookings.map((booking) => (
+        <BookingsRow booking={booking} key={booking.id} />
       ))}
     
       </div>
