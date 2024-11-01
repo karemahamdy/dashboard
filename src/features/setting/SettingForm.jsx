@@ -1,14 +1,17 @@
 // import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Loader from '@/ui/Loader';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 // import { updateSetting } from '@/services/apiSettings';
 import { useSettings }  from './useSetting'
+import { useUpdateSetting } from './useUpdateSetting';
 // import toast from 'react-hot-toast';
 
 
 export default function SettingForm() {
 
   const {
+    isPending,
     Settings: {
       minbooking,
       maxbooking,
@@ -16,27 +19,23 @@ export default function SettingForm() {
       breakfastCost,
     } = {},
   } = useSettings();
-  const { Settings } = useSettings()
-  console.log("Settings data:", Settings);
-  // const queryClient = useQueryClient();
-  // const { mutate: useUpdateSetting } = useMutation({
-  //   mutationFn: updateSetting,
-  //   onSuccess: () => {
-  //     toast.success("Cabin successfully deleted");
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["settings"],
-  //     });
-  //   },
-  //   onError: () => {
-  //     (err) => toast.err(err.message);
-  //   },
+  
+  const { isUpdating, updateSetting } = useUpdateSetting();
 
-  // });
+  if (isPending) return <Loader />;
+
+  function handleUpdate(e, field) {
+    const { value } = e.target;
+
+    if (!value) return;
+    updateSetting({ [field]: value });
+  }
+
 
   return (
     <>
     <div className="bg-white  rounded-md p-6">
-        <form>
+        <form onSubmit={handleUpdate}>
       
           <div className=" mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
             <Label htmlFor="maxbooking" className="sm:basis-40 ">Max Booking/nights</Label>
@@ -44,6 +43,8 @@ export default function SettingForm() {
             id="maxbooking"
               type="name"
               defaultValue={maxbooking}
+              disabled={isUpdating}
+              onBlur={(e) => handleUpdate(e, "maxbooking")}
             />  
          </div>
 
@@ -54,6 +55,9 @@ export default function SettingForm() {
               id="minbooking"
               type="name"
               defaultValue={minbooking}
+              disabled={isUpdating}
+              onBlur={(e) => handleUpdate(e, "minbooking")}
+
             />
           </div>
 
@@ -64,6 +68,9 @@ export default function SettingForm() {
               id="maxbooking"
               type="name"
               defaultValue={maxguests}
+              disabled={isUpdating}
+              onBlur={(e) => handleUpdate(e, "maxguests")}
+
             />
           </div>
 
@@ -74,6 +81,9 @@ export default function SettingForm() {
               id="breakfast-price"
               type="number"
               defaultValue={breakfastCost}
+              disabled={isUpdating}
+              onBlur={(e) => handleUpdate(e, "breakfastCost")}
+
             />
           </div>
 
