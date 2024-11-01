@@ -1,13 +1,13 @@
 import Empty from "../../ui/empty";
 import Loader from "../../ui/Loader";
-import CabinRow from "./CabinRow";
-import { useCabins } from "./UseCabins";
+import BookingsRow from "./BookingsRow";
+import { useBooking } from "./useBooking";
 
-function CabinTable() {
-  const { isLoading, Cabins } = useCabins();
+function BookingsTable() {
+  const { isLoading, Bookings } = useBooking();
 
   if (isLoading) return <Loader/>;
-  if (!Cabins.length) return <Empty resourceName="bookings" />;
+  if (!Bookings.length) return <Empty resourceName="bookings" />;
 
   return (
     <div
@@ -17,19 +17,19 @@ function CabinTable() {
     
         {/* Header */}
         <header className="grid grid-cols-7 gap-4 bg-gray-50 px-6 py-4 border-b border-gray-200">
-        <div>Image</div>
         <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
+        <div>Guest</div>
+        <div>Dates</div>
+        <div>Status</div>
+        <div>Amount</div>
         <div></div>
       </header>
-      { Cabins.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
+      { Bookings.map((cabin) => (
+        <BookingsRow cabin={cabin} key={cabin.id} />
       ))}
     
       </div>
   );
 }
 
-export default CabinTable;
+export default BookingsTable;

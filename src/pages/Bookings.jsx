@@ -1,10 +1,9 @@
-import React from 'react'
+import BookingsTable from '../features/booking/BookingsTable'
 
 export default function Booking() {
   return (
     <div>
-      <h1>booking</h1>
-    
+      <BookingsTable/>
     </div>
 
   )
