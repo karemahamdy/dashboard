@@ -1,54 +1,8 @@
+import { Calendar, Mail, User } from 'lucide-react';
 
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import Button from "../../ui/Button";
-// import { formatCurrency } from "../../utils/helpers";
-// import { deleteCabins } from "../../services/apiCabins";
-// import toast from "react-hot-toast";
-
-
-// function BookingsRow({
-//   Bookings: {
-//     id: bookingId,
-//     created_at,
-//     startdate,
-//     endDate,
-//     numNight,
-//     numGuests,
-//     totalPrice,
-//     status,
-//     Guests: { fullname: guestName, email },
-//     Cabins: { name: cabinName },
-//   },
-// }) {
-
-//   return (
-//     <>
-//       <div  className="grid grid-cols-7 gap-4 px-8 py-4 items-center bg-white p">
-      
-//         <div className="font-semibold text-black text-lg font-sono">
-//           {cabinName}
-//         </div>
-        
-//         <div className="font-semibold text-black text-lg font-sono">
-//           <span>{guestName}</span>
-//           <span>{email}</span>
-//         </div>
-        
-//         <div className="font-semibold text-black text-lg font-sono">
-//           {startdate} {endDate}
-//         </div>
-
-//       </div> 
-    
-//     </>
-//   );
-// }
-
-// export default BookingsRow;
-
-const BookingsRow = ({ booking }) => {
-  const {
-    id,
+const BookingsRow = ({
+  booking: {
+    id: bookingId,
     created_at,
     startdate,
     enddate,
@@ -56,35 +10,68 @@ const BookingsRow = ({ booking }) => {
     numGuests,
     totalPrice,
     status,
-    Guests,
-    Cabins,
-  } = booking;
+    Guests = {}, // Default in case Guests is missing
+    Cabins = {}, // Default in case Cabins is missing
+  },
+}) => {
+  const { fullname: guestname = 'Unknown Guest', email = 'No Email' } = Guests;
+  const { name: cabinName = 'No Cabin Name' } = Cabins;
+
+  const formatDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getStatusStyles = (status) => {
+    const styles = {
+      unconfirmed: 'bg-yellow-100 text-yellow-800',
+      confirmed: 'bg-green-100 text-green-800',
+      checkedout: 'bg-gray-100 text-gray-800',
+      canceled: 'bg-red-100 text-red-800'
+    };
+    return styles[status.toLowerCase()] || 'bg-gray-100 text-gray-800';
+  };
 
   return (
-    <div className="grid grid-cols-7 gap-4 px-8 py-4 items-center bg-white border-b border-gray-200">
-      <div className="font-semibold text-black text-lg font-sono">
-        {Cabins?.name}
+    <div className="grid grid-cols-[1.5fr,2fr,2fr,1fr,1fr,1fr] gap-4 px-6 py-4 items-center bg-white border-b border-gray-200 hover:bg-gray-50 transition-colors">
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <User className="w-4 h-4 text-gray-500" />
+          <span className="font-medium text-gray-900">{guestname}</span>
+        </div>
+        <span className="text-sm text-gray-500">Cabin: {cabinName}</span>
       </div>
-
-      <div className="font-semibold text-black text-lg font-sono">
-        <div>{Guests?.fullname}</div>
-        <div className="text-sm text-gray-500">{Guests?.email}</div>
+      <div className="flex items-center gap-2">
+        <Mail className="w-4 h-4 text-gray-500" />
+        <span className="text-gray-600">{email}</span>
       </div>
-
-      <div className="font-semibold text-black text-lg font-sono">
-        <div>{startdate}</div>
-        <div className="text-sm text-gray-500">{enddate}</div>
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-gray-500" />
+          <span className="font-medium">{formatDate(startdate)}</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <span>➔</span>
+          <span>{formatDate(enddate)}</span>
+          <span className="text-gray-400">·</span>
+          <span>{numNight} nights</span>
+        </div>
       </div>
-
-      <div className="font-semibold text-black text-lg font-sono">
-        {status}
+      <div>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${getStatusStyles(status)}`}>
+          {status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
       </div>
-
-      <div className="font-semibold text-black text-lg font-sono">
-        ${totalPrice}
+      <div className="font-mono font-medium">
+        ${totalPrice.toLocaleString()}
       </div>
-
-      <div></div>
+      <div className="flex items-center gap-1">
+        <User className="w-4 h-4 text-gray-400" />
+        <span className="text-gray-600">{numGuests}</span>
+      </div>
     </div>
   );
 };
