@@ -10,8 +10,8 @@ const BookingsRow = ({
     numGuests,
     totalPrice,
     status,
-    Guests = {}, // Default in case Guests is missing
-    Cabins = {}, // Default in case Cabins is missing
+    Guests = {},
+    Cabins = {}, 
   },
 }) => {
   const { fullname: guestname = 'Unknown Guest', email = 'No Email' } = Guests;
@@ -69,7 +69,7 @@ const BookingsRow = ({
         ${totalPrice.toLocaleString()}
       </div>
       <div className="flex items-center gap-1">
-        <User className="w-4 h-4 text-gray-400" />
+      
         <span className="text-gray-600">{numGuests}</span>
       </div>
     </div>
