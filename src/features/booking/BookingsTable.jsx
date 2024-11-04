@@ -1,7 +1,6 @@
 import Empty from "../../ui/empty";
 import Loader from "../../ui/Loader";
 import BookingsRow from "./BookingsRow";
-import BookingTableOperations from "./BookingTableOperations";
 import { useBooking } from "./useBooking";
 
 function BookingsTable() {
@@ -12,7 +11,7 @@ function BookingsTable() {
 
   return (
     <>
-      <BookingTableOperations/>
+    
     <div
       role="table"
       className="w-full rounded-lg border border-gray-200 overflow-hidden"

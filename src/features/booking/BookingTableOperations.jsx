@@ -14,7 +14,7 @@ function BookingTableOperations() {
           { value: "unconfirmed", label: "Unconfirmed" },
         ]}
       />
-{/* 
+
       <SortBy
         options={[
           { value: "startDate-desc", label: "Sort by date (recent first)" },
@@ -25,7 +25,7 @@ function BookingTableOperations() {
           },
           { value: "totalPrice-asc", label: "Sort by amount (low first)" },
         ]}
-      /> */}
+      />
     </div>
   );
 }
