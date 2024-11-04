@@ -1,6 +1,7 @@
 import Empty from "../../ui/empty";
 import Loader from "../../ui/Loader";
 import BookingsRow from "./BookingsRow";
+import BookingTableOperations from "./BookingTableOperations";
 import { useBooking } from "./useBooking";
 
 function BookingsTable() {
@@ -10,10 +11,12 @@ function BookingsTable() {
   if (!Bookings.length) return <Empty resourceName="bookings" />;
 
   return (
+    <>
+      <BookingTableOperations/>
     <div
       role="table"
       className="w-full rounded-lg border border-gray-200 overflow-hidden"
-    >
+      >
     
         {/* Header */}
         <header className="grid grid-cols-7 gap-4 bg-gray-50 px-6 py-4 border-b border-gray-200">
@@ -29,6 +32,7 @@ function BookingsTable() {
       ))}
     
       </div>
+      </>
   );
 }
 
