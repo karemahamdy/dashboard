@@ -10,12 +10,10 @@ const BookingsRow = ({
     numGuests,
     totalPrice,
     status,
-    Guests = {},
-    Cabins = {}, 
+    // Guests: { fullname: guestname, email },
+    Cabins: { name: Cabinsname },
   },
 }) => {
-  const { fullname: guestname = 'Unknown Guest', email = 'No Email' } = Guests;
-  const { name: cabinName = 'No Cabin Name' } = Cabins;
 
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -40,13 +38,13 @@ const BookingsRow = ({
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <User className="w-4 h-4 text-gray-500" />
-          <span className="font-medium text-gray-900">{guestname}</span>
+          {/* <span className="font-medium text-gray-900">{guestname}</span> */}
         </div>
-        <span className="text-sm text-gray-500">Cabin: {cabinName}</span>
+        <span className="text-sm text-gray-500">Cabin: {Cabinsname}</span>
       </div>
       <div className="flex items-center gap-2">
         <Mail className="w-4 h-4 text-gray-500" />
-        <span className="text-gray-600">{email}</span>
+        {/* <span className="text-gray-600">{email}</span> */}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
@@ -66,7 +64,7 @@ const BookingsRow = ({
         </span>
       </div>
       <div className="font-mono font-medium">
-        ${totalPrice.toLocaleString()}
+        ${totalPrice}
       </div>
       <div className="flex items-center gap-1">
       
