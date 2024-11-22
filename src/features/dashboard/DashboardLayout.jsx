@@ -6,6 +6,7 @@ import { useCabins } from "../cabin/UseCabins";
 // import SalesChart from "./SalesChart";
 // import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
+import SalesChart from "./SalesChart";
 
 function DashboardLayout() {
   const { Bookings, isLoading: isLoading1 } = useRecentBookings();
@@ -23,8 +24,8 @@ function DashboardLayout() {
         cabinCount={Cabins.length}
       />
       <TodayActivity />
-      {/* <DurationChart confirmedStays={confirmedStays} />
-      <SalesChart bookings={bookings} numDays={numDays} /> */}
+      {/* <DurationChart confirmedStays={confirmedStays} />*/}
+      <SalesChart bookings={Bookings} numDays={numDays} /> 
     </div>
   );
 }
