@@ -15,7 +15,7 @@ function DashboardLayout() {
   if (isLoading1 || isLoading2 || isLoading3) return <Loader />;
 
   return (
-    <div className="grid grid-cols-4 grid-rows-[auto_34rem_auto] gap-6">
+    <div className="grid grid-cols-4  gap-6">
       <Stats
         Bookings={Bookings}
         confirmedStays={confirmedStays}
