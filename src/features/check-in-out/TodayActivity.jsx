@@ -1,55 +1,33 @@
-import {
-  HiOutlineBanknotes,
-  HiOutlineBriefcase,
-  HiOutlineCalendarDays,
-  HiOutlineChartBar,
-} from "react-icons/hi2";
-import Stat from "../dashboard/Stat";
-import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ Bookings, confirmedStays, numDays, cabinCount }) {
-  // 1. Total number of Bookings
-  const numBookings = Bookings.length;
+import { useTodayActivity } from "./useTodayActivity";
 
-  // 2. Total sales
-  const sales = Bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
+import TodayItem from "./TodayItem";
+import Loader from "../../ui/Loader";
 
-  // 3. Total check-ins
-  const checkins = confirmedStays.length;
-
-  // 4. Occupancy rate
-  const occupation =
-    confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
-    (numDays * cabinCount);
+function TodayActivity() {
+  const { activities, isLoading } = useTodayActivity();
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-      <Stat
-        title="Bookings"
-        color="blue"
-        icon={<HiOutlineBriefcase />}
-        value={numBookings}
-      />
-      <Stat
-        title="Sales"
-        color="green"
-        icon={<HiOutlineBanknotes />}
-        value={formatCurrency(sales)}
-      />
-      <Stat
-        title="Check ins"
-        color="indigo"
-        icon={<HiOutlineCalendarDays />}
-        value={checkins}
-      />
-      <Stat
-        title="Occupancy rate"
-        color="yellow"
-        icon={<HiOutlineChartBar />}
-        value={Math.round(occupation * 100) + "%"}
-      />
+    <div className="bg-grey-0 border border-grey-100 rounded-md p-8 flex flex-col gap-6 grid-column-1 span-2 pt-6">
+      <span type="horizontal">
+        <h4>Today</h4>
+      </span>
+
+      {!isLoading ? (
+        activities?.length > 0 ? (
+          <ul className="overflow-y-auto overflow-x-hidden">
+            {activities.map((activity) => (
+              <TodayItem activity={activity} key={activity.id} />
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center text-xl font-medium mt-2">No activity today...</p>
+        )
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }
 
-export default Stats;
+export default TodayActivity;
