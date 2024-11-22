@@ -7,12 +7,12 @@ import {
 import Stat from "../dashboard/Stat";
 import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
-  // 1. Total number of bookings
-  const numBookings = bookings.length;
+function Stats({ Bookings, confirmedStays, numDays, cabinCount }) {
+  // 1. Total number of Bookings
+  const numBookings = Bookings.length;
 
   // 2. Total sales
-  const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
+  const sales = Bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
 
   // 3. Total check-ins
   const checkins = confirmedStays.length;
