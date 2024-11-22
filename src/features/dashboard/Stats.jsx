@@ -23,28 +23,28 @@ function Stats({ Bookings, confirmedStays, numDays, cabinCount }) {
     (numDays * cabinCount);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="flex justify-around items-center text-center gap-6">
       <Stat
         title="Bookings"
-        color="blue"
+        color="gray"
         icon={<HiOutlineBriefcase />}
         value={numBookings}
       />
       <Stat
         title="Sales"
-        color="green"
+        color="yellow"
         icon={<HiOutlineBanknotes />}
         value={formatCurrency(sales)}
       />
       <Stat
-        title="Check ins"
-        color="indigo"
+        title="Check-ins"
+        color="green"
         icon={<HiOutlineCalendarDays />}
         value={checkins}
       />
       <Stat
-        title="Occupancy rate"
-        color="yellow"
+        title="Occupancy Rate"
+        color="red"
         icon={<HiOutlineChartBar />}
         value={Math.round(occupation * 100) + "%"}
       />
