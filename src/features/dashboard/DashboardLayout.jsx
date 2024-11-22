@@ -8,6 +8,22 @@ import TodayActivity from "../check-in-out/TodayActivity";
 import SalesChart from "./SalesChart";
 
 function DashboardLayout() {
+
+  const fakeStays = [
+    { id: 1, numNights: 1 },
+    { id: 2, numNights: 2 },
+    { id: 3, numNights: 3 },
+    { id: 4, numNights: 4 },
+    { id: 5, numNights: 5 },
+    { id: 6, numNights: 6 },
+    { id: 7, numNights: 7 },
+    { id: 8, numNights: 8 },
+    { id: 9, numNights: 15 },
+    { id: 10, numNights: 21 },
+    { id: 11, numNights: 21 },
+  ];
+
+
   const { Bookings, isLoading: isLoading1 } = useRecentBookings();
   const { confirmedStays, isLoading: isLoading2, numDays } = useRecentStays();
   console.log(confirmedStays)
@@ -24,7 +40,7 @@ function DashboardLayout() {
         cabinCount={Cabins.length}
       />
       <TodayActivity />
-      <DurationChart confirmedStays={confirmedStays} />
+      <DurationChart confirmedStays={fakeStays} />
       <SalesChart bookings={Bookings} numDays={numDays} /> 
     </div>
   );
