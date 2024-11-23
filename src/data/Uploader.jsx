@@ -17,27 +17,27 @@ import { guests } from "./data-guests";
 
 // async function deleteGuests() {
 //   const { error } = await supabase.from("Guests").delete().gt("id", 0);
-//   if (error) console.log(error.message);
+//   if (error) console.error(error.message);
 // }
 
 // async function deleteCabins() {
 //   const { error } = await supabase.from("Cabins").delete().gt("id", 0);
-//   if (error) console.log(error.message);
+//   if (error) console.error(error.message);
 // }
 
 async function deleteBookings() {
   const { error } = await supabase.from("Bookings").delete().gt("id", 0);
-  if (error) console.log(error.message);
+  if (error) console.error(error.message);
 }
 
 async function createGuests() {
   const { error } = await supabase.from("Guests").insert(guests);
-  if (error) console.log(error.message);
+  if (error) console.error(error.message);
 }
 
 async function createCabins() {
   const { error } = await supabase.from("Cabins").insert(cabins);
-  if (error) console.log(error.message);
+  if (error) console.error(error.message);
 }
 
 async function createBookings() {
@@ -94,10 +94,10 @@ async function createBookings() {
     };
   });
 
-  console.log(finalBookings);
+  console.error(finalBookings);
 
   const { error } = await supabase.from("Bookings").insert(finalBookings);
-  if (error) console.log(error.message);
+  if (error) console.error(error.message);
 }
 
 function Uploader() {

@@ -8,7 +8,7 @@ export async function getBooking() {
       "id, created_at, startdate, enddate, numNight, numGuests, status, totalPrice, Cabins(name), Guests(fullname, email)",
       
   );
-  console.log(data)
+  
   if (error) {
     console.error(error);
     throw new Error("Booking not found");
@@ -59,7 +59,7 @@ export async function getStaysTodayActivity() {
       `and(status.eq.unconfirmed,startdate.eq.${getToday()}),and(status.eq.checked-in,enddate.eq.${getToday()})`
     )
     .order("created_at");
-  console.log(data);
+
   // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
   // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
   // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
